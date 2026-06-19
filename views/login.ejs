@@ -1,0 +1,792 @@
+<!-- ===== LOGIN PAGE – FINAL ADJUSTED ===== -->
+<%- include("navbar.ejs") %>
+
+<section class="login-section" dir="rtl">
+  <!-- Particles Canvas -->
+  <canvas id="particlesCanvasLogin"></canvas>
+
+  <!-- Floating Shapes -->
+  <div class="floating-shape shape-1"></div>
+  <div class="floating-shape shape-2"></div>
+  <div class="floating-shape shape-3"></div>
+  <div class="floating-shape shape-4"></div>
+  <div class="floating-shape shape-5"></div>
+
+  <div class="container position-relative" style="z-index: 10">
+    <div class="row justify-content-center align-items-center min-vh-100">
+      <div class="col-lg-6 col-md-8 col-12">
+        <div class="login-card-wrapper" id="cardWrapperLogin">
+          <div class="login-card text-center" id="loginCard">
+            <!-- Icon -->
+            <div class="login-icon-wrapper">
+              <div class="login-icon-glow"></div>
+              <div class="login-icon">
+                <i class="fas fa-user-secret"></i>
+              </div>
+            </div>
+
+            <!-- Title -->
+            <h2 class="login-title">
+              <span class="gradient-text">تسجيل الدخول</span>
+            </h2>
+
+            <p class="login-subtitle">
+              مرحباً بعودتك! يرجى إدخال بياناتك للمتابعة
+            </p>
+
+            <div class="login-divider mx-auto my-4"></div>
+
+            <!-- Form -->
+            <form method="POST" action="/handleLogin" class="login-form">
+              <!-- Email -->
+              <div class="form-group text-end">
+                <label class="form-label" for="loginEmail">
+                  <i class="fas fa-envelope me-1"></i> البريد الإلكتروني
+                </label>
+                <input
+                  id="loginEmail"
+                  class="form-control login-input"
+                  placeholder="example@domain.com"
+                  type="email"
+                  name="email"
+                  dir="ltr"
+                />
+                <div class="text-danger error-text mt-1">
+                  <%= error?.find(val => val.path[0] === "email")?.message || ""
+                  %>
+                </div>
+              </div>
+
+              <!-- Password -->
+              <div class="form-group text-end mt-3">
+                <label class="form-label" for="loginPassword">
+                  <i class="fas fa-lock me-1"></i> كلمة المرور
+                </label>
+                <input
+                  id="loginPassword"
+                  class="form-control login-input"
+                  placeholder="••••••••"
+                  type="password"
+                  name="password"
+                  dir="ltr"
+                />
+                <div class="text-danger error-text mt-1">
+                  <%= error?.find(val => val.path[0] === "password")?.message ||
+                  "" %>
+                </div>
+              </div>
+
+              <!-- Login Button -->
+              <button
+                class="btn btn-login w-100 mt-4 pulse-on-hover"
+                type="submit"
+              >
+                <i class="fas fa-sign-in-alt me-2"></i> تسجيل الدخول
+              </button>
+
+              <!-- Forgot Password -->
+              <p class="forgot-password mt-2 mb-0">
+                <a href="#" class="forgot-link">
+                  <i class="fas fa-key me-1"></i> نسيت كلمة المرور؟
+                </a>
+              </p>
+
+              <!-- Register Link -->
+              <div
+                class="register-cta mt-3 pt-3 border-top border-light border-opacity-10"
+              >
+                <p class="mb-0 text-muted-light">
+                  ليس لديك حساب؟
+                  <a href="/register" class="register-link">
+                    <i class="far fa-edit me-1"></i> إنشاء حساب جديد
+                  </a>
+                </p>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include("footer.ejs") %>
+
+<style>
+  /* ============================================================
+     BASE
+     ============================================================ */
+  .login-section {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    background: #0a0a1a;
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  /* ============================================================
+     CANVAS – particles
+     ============================================================ */
+  #particlesCanvasLogin {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ============================================================
+     FLOATING SHAPES
+     ============================================================ */
+  .floating-shape {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 1;
+    will-change: transform;
+    opacity: 0.4;
+    animation: floatShape 14s ease-in-out infinite alternate;
+  }
+
+  .shape-1 {
+    width: 280px;
+    height: 280px;
+    top: -10%;
+    right: -4%;
+    background: radial-gradient(
+      circle,
+      rgba(108, 99, 255, 0.2) 0%,
+      transparent 70%
+    );
+    animation-delay: 0s;
+    animation-duration: 15s;
+  }
+  .shape-2 {
+    width: 200px;
+    height: 200px;
+    bottom: 2%;
+    left: -5%;
+    background: radial-gradient(
+      circle,
+      rgba(255, 107, 107, 0.18) 0%,
+      transparent 70%
+    );
+    animation-delay: -3s;
+    animation-duration: 17s;
+  }
+  .shape-3 {
+    width: 150px;
+    height: 150px;
+    top: 25%;
+    left: 8%;
+    background: radial-gradient(
+      circle,
+      rgba(0, 230, 118, 0.15) 0%,
+      transparent 70%
+    );
+    animation-delay: -5s;
+    animation-duration: 13s;
+  }
+  .shape-4 {
+    width: 120px;
+    height: 120px;
+    bottom: 30%;
+    right: 6%;
+    background: radial-gradient(
+      circle,
+      rgba(255, 215, 0, 0.15) 0%,
+      transparent 70%
+    );
+    animation-delay: -7s;
+    animation-duration: 16s;
+  }
+  .shape-5 {
+    width: 90px;
+    height: 90px;
+    top: 60%;
+    left: 3%;
+    background: radial-gradient(
+      circle,
+      rgba(0, 188, 212, 0.18) 0%,
+      transparent 70%
+    );
+    animation-delay: -9s;
+    animation-duration: 12s;
+  }
+
+  @keyframes floatShape {
+    0% {
+      transform: translate(0, 0) scale(1) rotate(0deg);
+    }
+    33% {
+      transform: translate(25px, -18px) scale(1.06) rotate(5deg);
+    }
+    66% {
+      transform: translate(-18px, 25px) scale(0.94) rotate(-4deg);
+    }
+    100% {
+      transform: translate(12px, -8px) scale(1.03) rotate(3deg);
+    }
+  }
+
+  /* ============================================================
+     LOGIN CARD
+     ============================================================ */
+  .login-card-wrapper {
+    position: relative;
+    z-index: 10;
+    perspective: 1200px;
+  }
+
+  .login-card {
+    position: relative;
+    z-index: 20;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(32px) saturate(1.4);
+    -webkit-backdrop-filter: blur(32px) saturate(1.4);
+    border-radius: 3rem;
+    padding: 3rem 2.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow:
+      0 40px 80px rgba(0, 0, 0, 0.6),
+      inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    transition:
+      transform 0.2s ease-out,
+      box-shadow 0.4s ease;
+    transform-style: preserve-3d;
+  }
+
+  .login-card:hover {
+    box-shadow:
+      0 60px 120px rgba(0, 0, 0, 0.7),
+      inset 0 1px 0 rgba(255, 255, 255, 0.07);
+  }
+
+  /* ============================================================
+     ICON
+     ============================================================ */
+  .login-icon-wrapper {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.2rem;
+    width: 80px;
+    height: 80px;
+  }
+
+  .login-icon-glow {
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle at 30% 30%,
+      rgba(108, 99, 255, 0.45),
+      rgba(108, 99, 255, 0.05)
+    );
+    filter: blur(18px);
+    opacity: 0.7;
+    animation: pulseGlow 3s ease-in-out infinite alternate;
+  }
+
+  @keyframes pulseGlow {
+    0% {
+      opacity: 0.4;
+      transform: scale(0.95);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1.1);
+    }
+  }
+
+  .login-icon {
+    position: relative;
+    z-index: 2;
+    width: 66px;
+    height: 66px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #6c63ff, #8b83ff);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: #fff;
+    box-shadow:
+      0 12px 40px rgba(108, 99, 255, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
+  }
+
+  .login-card:hover .login-icon {
+    transform: scale(1.04);
+    box-shadow:
+      0 16px 56px rgba(108, 99, 255, 0.45),
+      inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  }
+
+  /* ============================================================
+     TYPOGRAPHY
+     ============================================================ */
+  .login-title {
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.25rem;
+  }
+
+  .gradient-text {
+    background: linear-gradient(
+      135deg,
+      #6c63ff 0%,
+      #a78bfa 40%,
+      #f472b6 70%,
+      #fb923c 100%
+    );
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradientShift 6s ease-in-out infinite alternate;
+  }
+
+  @keyframes gradientShift {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  .login-subtitle {
+    font-size: clamp(0.9rem, 1.1vw, 1.05rem);
+    color: rgba(255, 255, 255, 0.55);
+    font-weight: 400;
+    letter-spacing: 0.01em;
+  }
+
+  .login-divider {
+    width: 60px;
+    height: 2.5px;
+    border-radius: 4px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(108, 99, 255, 0.6),
+      transparent
+    );
+  }
+
+  /* ============================================================
+     FORM
+     ============================================================ */
+  .login-form {
+    text-align: right;
+  }
+
+  .form-group {
+    text-align: right;
+  }
+
+  .form-label {
+    display: inline-block;
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 500;
+    font-size: 0.9rem;
+    margin-bottom: 0.4rem;
+    letter-spacing: 0.02em;
+  }
+
+  .form-label i {
+    color: rgba(108, 99, 255, 0.6);
+  }
+
+  .login-input {
+    width: 100%;
+    padding: 0.85rem 1.2rem;
+    border-radius: 60px;
+    border: 1.5px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.04);
+    color: #fff;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    outline: none;
+    direction: ltr;
+    text-align: right;
+  }
+
+  .login-input::placeholder {
+    color: rgba(255, 255, 255, 0.25);
+    font-weight: 300;
+  }
+
+  .login-input:focus {
+    border-color: rgba(108, 99, 255, 0.5);
+    background: rgba(255, 255, 255, 0.07);
+    box-shadow: 0 0 0 4px rgba(108, 99, 255, 0.08);
+    color: #fff;
+  }
+
+  .login-input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px rgba(20, 20, 40, 0.9) inset !important;
+    -webkit-text-fill-color: #fff !important;
+    border-color: rgba(108, 99, 255, 0.3);
+  }
+
+  .error-text {
+    font-size: 0.8rem;
+    color: #f87171 !important;
+    text-align: right;
+    padding-right: 0.5rem;
+    min-height: 1.4rem;
+  }
+
+  /* ============================================================
+     BUTTONS
+     ============================================================ */
+  .btn-login {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.9rem 2rem;
+    border-radius: 60px;
+    font-weight: 700;
+    font-size: 1.05rem;
+    cursor: pointer;
+    pointer-events: auto;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    border: none;
+    text-decoration: none;
+    gap: 0.5rem;
+    background: linear-gradient(135deg, #6c63ff, #5a52d5);
+    color: #fff;
+    box-shadow: 0 8px 32px rgba(108, 99, 255, 0.3);
+  }
+
+  .btn-login:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 14px 48px rgba(108, 99, 255, 0.45);
+    background: linear-gradient(135deg, #7b73ff, #6c63ff);
+    color: #fff;
+  }
+
+  .btn-login:active {
+    transform: translateY(0) scale(0.98);
+  }
+
+  .pulse-on-hover {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .pulse-on-hover::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 60px;
+    background: rgba(255, 255, 255, 0.06);
+    transform: scale(0.8);
+    opacity: 0;
+    transition:
+      transform 0.5s ease,
+      opacity 0.5s ease;
+    pointer-events: none;
+  }
+
+  .pulse-on-hover:hover::after {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  /* ============================================================
+     FORGOT PASSWORD
+     ============================================================ */
+  .forgot-password {
+    margin-top: 0.75rem;
+  }
+
+  .forgot-link {
+    color: rgba(255, 255, 255, 0.35);
+    font-size: 0.85rem;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+  }
+
+  .forgot-link:hover {
+    color: rgba(108, 99, 255, 0.7);
+    text-decoration: none;
+  }
+
+  .forgot-link i {
+    font-size: 0.75rem;
+  }
+
+  /* ============================================================
+     REGISTER CTA
+     ============================================================ */
+  .register-cta {
+    border-top-color: rgba(255, 255, 255, 0.06) !important;
+  }
+
+  .text-muted-light {
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.95rem;
+  }
+
+  .register-link {
+    color: #a78bfa;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    padding: 0.2rem 0.4rem;
+    border-radius: 30px;
+  }
+
+  .register-link:hover {
+    color: #c4b5fd;
+    text-decoration: none;
+    background: rgba(108, 99, 255, 0.08);
+  }
+
+  .register-link i {
+    font-size: 0.85rem;
+  }
+
+  /* ============================================================
+     RESPONSIVE
+     ============================================================ */
+  @media (max-width: 768px) {
+    .login-card {
+      padding: 2.5rem 1.5rem;
+      border-radius: 2.2rem;
+    }
+
+    .login-icon-wrapper {
+      width: 68px;
+      height: 68px;
+    }
+    .login-icon {
+      width: 56px;
+      height: 56px;
+      font-size: 1.6rem;
+    }
+
+    .login-input {
+      padding: 0.75rem 1rem;
+      font-size: 0.95rem;
+    }
+
+    .btn-login {
+      padding: 0.75rem 1.5rem;
+      font-size: 0.95rem;
+    }
+
+    .shape-1 {
+      width: 180px;
+      height: 180px;
+    }
+    .shape-2 {
+      width: 140px;
+      height: 140px;
+    }
+    .shape-3 {
+      width: 100px;
+      height: 100px;
+    }
+    .shape-4 {
+      width: 80px;
+      height: 80px;
+    }
+    .shape-5 {
+      width: 60px;
+      height: 60px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .login-card {
+      padding: 2rem 1.2rem;
+      border-radius: 1.8rem;
+    }
+
+    .login-title {
+      font-size: 1.8rem;
+    }
+
+    .login-subtitle {
+      font-size: 0.85rem;
+    }
+
+    .form-label {
+      font-size: 0.8rem;
+    }
+
+    .login-input {
+      padding: 0.65rem 0.9rem;
+      font-size: 0.9rem;
+    }
+
+    .btn-login {
+      padding: 0.65rem 1.2rem;
+      font-size: 0.85rem;
+    }
+
+    .register-link {
+      font-size: 0.9rem;
+    }
+
+    .text-muted-light {
+      font-size: 0.85rem;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // ============================================================
+    //  TILT EFFECT
+    // ============================================================
+    const card = document.getElementById("loginCard");
+    const wrapper = document.getElementById("cardWrapperLogin");
+
+    if (card && wrapper) {
+      wrapper.addEventListener("mousemove", (e) => {
+        const rect = wrapper.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        const rotateX = ((y - rect.height / 2) / rect.height) * -8;
+        const rotateY = ((x - rect.width / 2) / rect.width) * 8;
+
+        card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+      });
+
+      wrapper.addEventListener("mouseleave", () => {
+        card.style.transform = "rotateX(0deg) rotateY(0deg)";
+      });
+    }
+
+    // ============================================================
+    //  PARTICLES
+    // ============================================================
+    const canvas = document.getElementById("particlesCanvasLogin");
+    if (!canvas) return;
+
+    const ctx = canvas.getContext("2d");
+    let w, h;
+    let particles = [];
+    const PARTICLE_COUNT = 90;
+
+    function resize() {
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+    }
+    window.addEventListener("resize", resize);
+    resize();
+
+    class Particle {
+      constructor() {
+        this.reset();
+      }
+      reset() {
+        this.x = Math.random() * w;
+        this.y = Math.random() * h;
+        this.size = Math.random() * 2 + 0.6;
+        this.speedX = (Math.random() - 0.5) * 0.4;
+        this.speedY = (Math.random() - 0.5) * 0.4;
+        this.opacity = Math.random() * 0.35 + 0.1;
+      }
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.x < 0) this.x = w;
+        if (this.x > w) this.x = 0;
+        if (this.y < 0) this.y = h;
+        if (this.y > h) this.y = 0;
+      }
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+        ctx.fill();
+      }
+    }
+
+    for (let i = 0; i < PARTICLE_COUNT; i++) {
+      particles.push(new Particle());
+    }
+
+    let mouse = { x: null, y: null };
+    window.addEventListener("mousemove", (e) => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+    });
+    window.addEventListener("mouseleave", () => {
+      mouse.x = null;
+      mouse.y = null;
+    });
+
+    function animate() {
+      ctx.clearRect(0, 0, w, h);
+
+      particles.forEach((p) => {
+        if (mouse.x !== null && mouse.y !== null) {
+          const dx = mouse.x - p.x;
+          const dy = mouse.y - p.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 160) {
+            const force = ((160 - dist) / 160) * 0.006;
+            p.x += dx * force;
+            p.y += dy * force;
+          }
+        }
+        p.update();
+        p.draw();
+      });
+
+      // connections
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 90) {
+            const alpha = (1 - dist / 90) * 0.1;
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.strokeStyle = `rgba(255, 255, 255, ${alpha})`;
+            ctx.lineWidth = 0.6;
+            ctx.stroke();
+          }
+        }
+      }
+
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    let resizeTimer;
+    window.addEventListener("resize", () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        resize();
+        particles.forEach((p) => p.reset());
+      }, 200);
+    });
+  });
+</script>

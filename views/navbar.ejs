@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sarahah</title>
+    <link
+      rel="shortcut icon"
+      href="/img/favicon-32x32.png"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/all.min.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <!-- custom navbar styles (inline for consistency) -->
+    <style>
+      /* ============================================================
+         GLASS NAVBAR
+         ============================================================ */
+      .navbar-glass {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1050;
+        padding: 0.7rem 1.5rem;
+        background: rgba(10, 10, 26, 0.55);
+        backdrop-filter: blur(18px) saturate(1.6);
+        -webkit-backdrop-filter: blur(18px) saturate(1.6);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        transition: background 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .navbar-glass.scrolled {
+        background: rgba(10, 10, 26, 0.75);
+        box-shadow: 0 8px 48px rgba(0, 0, 0, 0.5);
+      }
+
+      .navbar-glass .navbar-brand {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0;
+        transition: transform 0.3s ease;
+      }
+
+      .navbar-glass .navbar-brand:hover {
+        transform: scale(1.04);
+      }
+
+      .navbar-glass .navbar-brand img {
+        width: 48px;
+        height: auto;
+        filter: drop-shadow(0 0 12px rgba(108, 99, 255, 0.25));
+        transition: filter 0.3s ease;
+      }
+
+      .navbar-glass .navbar-brand:hover img {
+        filter: drop-shadow(0 0 20px rgba(108, 99, 255, 0.45));
+      }
+
+      .navbar-glass .navbar-brand .brand-text {
+        font-size: 1.3rem;
+        font-weight: 700;
+        background: linear-gradient(135deg, #6c63ff, #a78bfa);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        letter-spacing: -0.02em;
+        display: none; /* hidden on small screens, show on md+ */
+      }
+
+      @media (min-width: 768px) {
+        .navbar-glass .navbar-brand .brand-text {
+          display: inline;
+        }
+      }
+
+      /* ---- toggle button ---- */
+      .navbar-glass .navbar-toggler {
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 60px;
+        padding: 0.4rem 1rem;
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 0.9rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        background: rgba(255, 255, 255, 0.02);
+      }
+
+      .navbar-glass .navbar-toggler:hover {
+        border-color: rgba(108, 99, 255, 0.4);
+        color: #fff;
+        background: rgba(108, 99, 255, 0.06);
+      }
+
+      .navbar-glass .navbar-toggler .navbar-toggler-icon {
+        filter: invert(0.8);
+        width: 1.2rem;
+        height: 1.2rem;
+      }
+
+      /* ---- nav links ---- */
+      .navbar-glass .navbar-nav {
+        align-items: center;
+        gap: 0.3rem;
+      }
+
+      .navbar-glass .nav-link {
+        color: rgba(255, 255, 255, 0.6);
+        font-weight: 500;
+        font-size: 0.95rem;
+        padding: 0.5rem 1.2rem;
+        border-radius: 60px;
+        transition: all 0.3s ease;
+        position: relative;
+        letter-spacing: 0.02em;
+      }
+
+      .navbar-glass .nav-link:hover,
+      .navbar-glass .nav-link:focus {
+        color: #fff;
+        background: rgba(255, 255, 255, 0.05);
+        text-decoration: none;
+      }
+
+      .navbar-glass .nav-link.active {
+        color: #fff;
+        background: rgba(108, 99, 255, 0.12);
+        border: 1px solid rgba(108, 99, 255, 0.08);
+      }
+
+      /* ---- special login/register buttons ---- */
+      .navbar-glass .nav-link.btn-nav {
+        padding: 0.45rem 1.6rem;
+        border-radius: 60px;
+        font-weight: 600;
+        transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      .navbar-glass .nav-link.btn-nav:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(108, 99, 255, 0.15);
+        border-color: rgba(108, 99, 255, 0.3);
+        color: #fff;
+        background: rgba(108, 99, 255, 0.06);
+      }
+
+      .navbar-glass .nav-link.btn-nav-primary {
+        background: linear-gradient(135deg, #6c63ff, #5a52d5);
+        border: none;
+        color: #fff !important;
+        box-shadow: 0 4px 16px rgba(108, 99, 255, 0.25);
+      }
+
+      .navbar-glass .nav-link.btn-nav-primary:hover {
+        transform: translateY(-2px) scale(1.02);
+        box-shadow: 0 8px 32px rgba(108, 99, 255, 0.4);
+        background: linear-gradient(135deg, #7b73ff, #6c63ff);
+        color: #fff !important;
+      }
+
+      .navbar-glass .nav-link.btn-nav-logout {
+        border: 1px solid rgba(239, 68, 68, 0.12);
+        color: rgba(255, 255, 255, 0.5);
+      }
+
+      .navbar-glass .nav-link.btn-nav-logout:hover {
+        border-color: rgba(239, 68, 68, 0.25);
+        color: #f87171;
+        background: rgba(239, 68, 68, 0.06);
+        transform: translateY(-2px);
+      }
+
+      /* ---- collapse background on mobile ---- */
+      @media (max-width: 991px) {
+        .navbar-glass .navbar-collapse {
+          background: rgba(10, 10, 26, 0.85);
+          backdrop-filter: blur(24px);
+          -webkit-backdrop-filter: blur(24px);
+          border-radius: 2rem;
+          padding: 1.2rem 1.2rem 0.8rem;
+          margin-top: 1rem;
+          border: 1px solid rgba(255, 255, 255, 0.04);
+          box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .navbar-glass .navbar-nav {
+          gap: 0.2rem;
+        }
+
+        .navbar-glass .nav-link {
+          padding: 0.6rem 1.2rem;
+          text-align: center;
+          width: 100%;
+        }
+
+        .navbar-glass .nav-link.btn-nav {
+          text-align: center;
+          justify-content: center;
+          width: 100%;
+        }
+
+        .navbar-glass .navbar-brand .brand-text {
+          display: inline;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .navbar-glass .navbar-brand img {
+          width: 38px;
+        }
+        .navbar-glass .navbar-brand .brand-text {
+          font-size: 1.1rem;
+        }
+        .navbar-glass .navbar-toggler {
+          font-size: 0.8rem;
+          padding: 0.3rem 0.8rem;
+        }
+      }
+
+      /* ============================================================
+         SCROLL DETECTION (optional)
+         ============================================================ */
+      .navbar-glass.scrolled {
+        background: rgba(10, 10, 26, 0.75);
+        box-shadow: 0 8px 48px rgba(0, 0, 0, 0.5);
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- ============================================================
+         GLASS NAVBAR
+         ============================================================ -->
+    <nav class="navbar navbar-expand-lg navbar-glass" id="mainNavbar">
+      <div class="container">
+        <!-- Brand -->
+        <a class="navbar-brand" href="/">
+          <img src="/img/logo300.png" width="54" alt="Sarahah logo" />
+          <span class="brand-text">ساراح</span>
+        </a>
+
+        <!-- Toggler -->
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon me-1"></span>
+          القائمة
+        </button>
+
+        <!-- Collapsible -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
+            <!-- left side empty (keep for spacing) -->
+          </ul>
+
+          <ul class="navbar-nav ms-auto">
+            <% if (!isLoggedIn) { %>
+              <li class="nav-item">
+                <a class="nav-link btn-nav" href="/register">
+                  <i class="far fa-edit me-1"></i> تسجيل
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link btn-nav btn-nav-primary" href="/login">
+                  <i class="fas fa-sign-in-alt me-1"></i> دخول
+                </a>
+              </li>
+            <% } %>
+
+            <% if (isLoggedIn) { %>
+              <li class="nav-item">
+                <a class="nav-link btn-nav btn-nav-logout" href="/logout">
+                  <i class="fas fa-sign-out-alt me-1"></i> خروج
+                </a>
+              </li>
+            <% } %>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- ============================================================
+         SCRIPT: SCROLL EFFECT
+         ============================================================ -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const navbar = document.getElementById('mainNavbar');
+        if (navbar) {
+          window.addEventListener('scroll', function() {
+            if (window.scrollY > 20) {
+              navbar.classList.add('scrolled');
+            } else {
+              navbar.classList.remove('scrolled');
+            }
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

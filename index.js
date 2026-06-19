@@ -1,0 +1,27 @@
+import express from "express";
+import homeRouter from "./src/modules/router/home.router.js";
+import loginRouter from "./src/modules/router/login.router.js";
+import registerRouter from "./src/modules/router/register.router.js";
+import dbconnect from "./dbConnection/dbconnect.js";
+import * as dotenv from "dotenv";
+import messageRouter from "./src/modules/router/message.router.js";
+import session from "express-session";
+import logoutController from "./src/modules/controller/logout.controller.js";
+import { userRouter } from "./src/modules/router/user.router.js";
+dotenv.config();
+const app = express();
+
+const port = 3000;
+dbconnect();
+app.set("view engine", "ejs");
+app.use(express.static("public"));
+app.use(express.urlencoded({ extended: true }));
+app.use(session({ secret: "secret", resave: true, saveUninitialized: true }));
+app.use(homeRouter);
+app.use(loginRouter);
+app.use(registerRouter);
+app.use(messageRouter);
+app.use(userRouter);
+app.use("/logout", logoutController);
+app.get("/", (req, res) => res.send("Hello World!"));
+app.listen(port, () => console.log(`Example app listening on port ${port}!`));

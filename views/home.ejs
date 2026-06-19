@@ -1,0 +1,698 @@
+<!-- /navbar -->
+<%- include("navbar.ejs") %>
+
+<section class="hero-section" id="heroSection" dir="rtl">
+  <canvas id="particlesCanvas"></canvas>
+
+  <!-- Floating Shapes -->
+  <div class="floating-shape shape-1"></div>
+  <div class="floating-shape shape-2"></div>
+  <div class="floating-shape shape-3"></div>
+  <div class="floating-shape shape-4"></div>
+  <div class="floating-shape shape-5"></div>
+  <div class="floating-shape shape-6"></div>
+
+  <div class="container position-relative" style="z-index: 10">
+    <div class="row justify-content-center align-items-center min-vh-100">
+      <div class="col-lg-8 col-md-10 col-12">
+        <div class="hero-card-wrapper" id="cardWrapper">
+          <div class="hero-card text-center" id="heroCard">
+            <div class="hero-icon-wrapper">
+              <div class="hero-icon-glow"></div>
+              <div class="hero-icon">
+                <i class="fas fa-comment-dots"></i>
+              </div>
+            </div>
+
+            <h1 class="hero-title display-3 fw-bold">
+              <span class="gradient-text">ساراح</span>
+            </h1>
+
+            <p class="hero-subtitle lead">
+              تتيح لك <strong>ساراح</strong> تلقي الملاحظات البناءة من أصدقائك
+              وزملائك في العمل
+            </p>
+
+            <div class="hero-divider mx-auto my-4"></div>
+
+            <div
+              class="hero-buttons d-flex flex-wrap justify-content-center align-items-center gap-4"
+            >
+              <a href="/login" class="btn btn-primary btn-hero pulse-on-hover">
+                <i class="fas fa-user me-2"></i> تسجيل الدخول
+              </a>
+
+              <a
+                href="/register"
+                class="btn btn-hero btn-register pulse-on-hover"
+              >
+                <i class="far fa-edit me-2"></i> إنشاء حساب
+              </a>
+            </div>
+
+            <p class="hero-helper mt-4 mb-0">
+              <i class="fas fa-shield-alt me-1"></i>
+              انضم إلى آلاف المستخدمين الذين يتبادلون الملاحظات الصادقة
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include("footer.ejs") %>
+
+<style>
+  /* ============================================================
+       BASE
+       ============================================================ */
+  .hero-section {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    background: #0a0a1a;
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  /* ============================================================
+       CANVAS – particles
+       ============================================================ */
+  #particlesCanvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ============================================================
+       FLOATING SHAPES
+       ============================================================ */
+  .floating-shape {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 1;
+    will-change: transform;
+    opacity: 0.5;
+    animation: floatShape 12s ease-in-out infinite alternate;
+  }
+
+  .shape-1 {
+    width: 320px;
+    height: 320px;
+    top: -8%;
+    right: -4%;
+    background: radial-gradient(
+      circle,
+      rgba(108, 99, 255, 0.25) 0%,
+      transparent 70%
+    );
+    animation-delay: 0s;
+    animation-duration: 14s;
+  }
+
+  .shape-2 {
+    width: 220px;
+    height: 220px;
+    bottom: 5%;
+    left: -3%;
+    background: radial-gradient(
+      circle,
+      rgba(255, 107, 107, 0.2) 0%,
+      transparent 70%
+    );
+    animation-delay: -2s;
+    animation-duration: 16s;
+  }
+
+  .shape-3 {
+    width: 180px;
+    height: 180px;
+    top: 20%;
+    left: 12%;
+    background: radial-gradient(
+      circle,
+      rgba(0, 230, 118, 0.18) 0%,
+      transparent 70%
+    );
+    animation-delay: -4s;
+    animation-duration: 13s;
+  }
+
+  .shape-4 {
+    width: 140px;
+    height: 140px;
+    bottom: 25%;
+    right: 8%;
+    background: radial-gradient(
+      circle,
+      rgba(255, 215, 0, 0.18) 0%,
+      transparent 70%
+    );
+    animation-delay: -6s;
+    animation-duration: 15s;
+  }
+
+  .shape-5 {
+    width: 100px;
+    height: 100px;
+    top: 55%;
+    left: 5%;
+    background: radial-gradient(
+      circle,
+      rgba(0, 188, 212, 0.2) 0%,
+      transparent 70%
+    );
+    animation-delay: -8s;
+    animation-duration: 11s;
+  }
+
+  .shape-6 {
+    width: 260px;
+    height: 260px;
+    bottom: -6%;
+    right: 18%;
+    background: radial-gradient(
+      circle,
+      rgba(108, 99, 255, 0.15) 0%,
+      transparent 70%
+    );
+    animation-delay: -3s;
+    animation-duration: 18s;
+  }
+
+  @keyframes floatShape {
+    0% {
+      transform: translate(0, 0) scale(1) rotate(0deg);
+    }
+    33% {
+      transform: translate(30px, -20px) scale(1.05) rotate(6deg);
+    }
+    66% {
+      transform: translate(-20px, 30px) scale(0.95) rotate(-4deg);
+    }
+    100% {
+      transform: translate(15px, -10px) scale(1.02) rotate(3deg);
+    }
+  }
+
+  /* ============================================================
+       HERO CARD
+       ============================================================ */
+  .hero-card-wrapper {
+    position: relative;
+    z-index: 10;
+    perspective: 1200px;
+  }
+
+  .hero-card {
+    position: relative;
+    z-index: 20;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(32px) saturate(1.4);
+    -webkit-backdrop-filter: blur(32px) saturate(1.4);
+    border-radius: 3.5rem;
+    padding: 4rem 3.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow:
+      0 40px 80px rgba(0, 0, 0, 0.6),
+      inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    transition:
+      transform 0.2s ease-out,
+      box-shadow 0.4s ease;
+    transform-style: preserve-3d;
+  }
+
+  .hero-card:hover {
+    box-shadow:
+      0 60px 120px rgba(0, 0, 0, 0.7),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  }
+
+  /* ============================================================
+       ICON
+       ============================================================ */
+  .hero-icon-wrapper {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    width: 88px;
+    height: 88px;
+  }
+
+  .hero-icon-glow {
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle at 30% 30%,
+      rgba(108, 99, 255, 0.5),
+      rgba(108, 99, 255, 0.05)
+    );
+    filter: blur(20px);
+    opacity: 0.7;
+    animation: pulseGlow 3s ease-in-out infinite alternate;
+  }
+
+  @keyframes pulseGlow {
+    0% {
+      opacity: 0.5;
+      transform: scale(0.95);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1.1);
+    }
+  }
+
+  .hero-icon {
+    position: relative;
+    z-index: 2;
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #6c63ff, #8b83ff);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.2rem;
+    color: #fff;
+    box-shadow:
+      0 12px 40px rgba(108, 99, 255, 0.35),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
+  }
+
+  .hero-card:hover .hero-icon {
+    transform: scale(1.05);
+    box-shadow:
+      0 16px 56px rgba(108, 99, 255, 0.5),
+      inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  }
+
+  /* ============================================================
+       TYPOGRAPHY
+       ============================================================ */
+  .hero-title {
+    font-size: clamp(2.8rem, 8vw, 4.8rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+  }
+
+  .gradient-text {
+    background: linear-gradient(
+      135deg,
+      #6c63ff 0%,
+      #a78bfa 40%,
+      #f472b6 70%,
+      #fb923c 100%
+    );
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradientShift 6s ease-in-out infinite alternate;
+  }
+
+  @keyframes gradientShift {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  .hero-subtitle {
+    font-size: clamp(1.05rem, 1.6vw, 1.35rem);
+    color: rgba(255, 255, 255, 0.75);
+    max-width: 540px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.7;
+    font-weight: 400;
+  }
+
+  .hero-subtitle strong {
+    color: #fff;
+    font-weight: 600;
+  }
+
+  /* ============================================================
+       DIVIDER
+       ============================================================ */
+  .hero-divider {
+    width: 80px;
+    height: 3px;
+    border-radius: 4px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(108, 99, 255, 0.7),
+      transparent
+    );
+  }
+
+  /* ============================================================
+       BUTTONS
+       ============================================================ */
+  .hero-buttons {
+    position: relative;
+    z-index: 999;
+  }
+
+  .btn-hero {
+    position: relative;
+    z-index: 999;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.9rem 3rem;
+    min-width: 190px;
+    border-radius: 60px;
+    font-weight: 700;
+    font-size: 1.05rem;
+    cursor: pointer;
+    pointer-events: auto;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    border: none;
+    text-decoration: none;
+    gap: 0.5rem;
+  }
+
+  /* ---- Login ---- */
+  .btn-primary {
+    background: linear-gradient(135deg, #6c63ff, #5a52d5);
+    color: #fff;
+    box-shadow: 0 8px 32px rgba(108, 99, 255, 0.3);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 14px 48px rgba(108, 99, 255, 0.45);
+    background: linear-gradient(135deg, #7b73ff, #6c63ff);
+    color: #fff;
+  }
+
+  .btn-primary:active {
+    transform: translateY(0) scale(0.98);
+  }
+
+  /* ---- Register ---- */
+  .btn-register {
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.25);
+    color: #fff;
+    backdrop-filter: blur(6px);
+  }
+
+  .btn-register:hover {
+    transform: translateY(-3px) scale(1.02);
+    border-color: rgba(255, 255, 255, 0.6);
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 14px 48px rgba(255, 255, 255, 0.06);
+    color: #fff;
+  }
+
+  .btn-register:active {
+    transform: translateY(0) scale(0.98);
+  }
+
+  /* ---- pulse animation on hover ---- */
+  .pulse-on-hover {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .pulse-on-hover::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 60px;
+    background: rgba(255, 255, 255, 0.05);
+    transform: scale(0.8);
+    opacity: 0;
+    transition:
+      transform 0.5s ease,
+      opacity 0.5s ease;
+    pointer-events: none;
+  }
+
+  .pulse-on-hover:hover::after {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  /* ============================================================
+       HELPER TEXT
+       ============================================================ */
+  .hero-helper {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.35);
+    letter-spacing: 0.02em;
+  }
+
+  .hero-helper i {
+    color: rgba(108, 99, 255, 0.5);
+  }
+
+  /* ============================================================
+       RESPONSIVE
+       ============================================================ */
+  @media (max-width: 768px) {
+    .hero-card {
+      padding: 2.5rem 1.5rem;
+      border-radius: 2.5rem;
+    }
+
+    .hero-icon-wrapper {
+      width: 72px;
+      height: 72px;
+    }
+
+    .hero-icon {
+      width: 60px;
+      height: 60px;
+      font-size: 1.8rem;
+    }
+
+    .btn-hero {
+      min-width: 150px;
+      padding: 0.75rem 1.8rem;
+      font-size: 0.95rem;
+    }
+
+    .shape-1 {
+      width: 180px;
+      height: 180px;
+    }
+    .shape-2 {
+      width: 140px;
+      height: 140px;
+    }
+    .shape-3 {
+      width: 100px;
+      height: 100px;
+    }
+    .shape-4 {
+      width: 80px;
+      height: 80px;
+    }
+    .shape-5 {
+      width: 60px;
+      height: 60px;
+    }
+    .shape-6 {
+      width: 150px;
+      height: 150px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .hero-card {
+      padding: 2rem 1rem;
+      border-radius: 2rem;
+    }
+
+    .hero-title {
+      font-size: clamp(2.2rem, 10vw, 2.8rem);
+    }
+
+    .hero-subtitle {
+      font-size: 1rem;
+    }
+
+    .btn-hero {
+      min-width: 130px;
+      padding: 0.65rem 1.4rem;
+      font-size: 0.85rem;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // ============================================================
+    //  TILT EFFECT
+    // ============================================================
+    const card = document.getElementById("heroCard");
+    const wrapper = document.getElementById("cardWrapper");
+
+    if (card && wrapper) {
+      wrapper.addEventListener("mousemove", (e) => {
+        const rect = wrapper.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        const rotateX = ((y - rect.height / 2) / rect.height) * -10;
+        const rotateY = ((x - rect.width / 2) / rect.width) * 10;
+
+        card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+      });
+
+      wrapper.addEventListener("mouseleave", () => {
+        card.style.transform = "rotateX(0deg) rotateY(0deg)";
+      });
+    }
+
+    // ============================================================
+    //  PARTICLES
+    // ============================================================
+    const canvas = document.getElementById("particlesCanvas");
+    if (!canvas) return;
+
+    const ctx = canvas.getContext("2d");
+    let w, h;
+    let particles = [];
+    const PARTICLE_COUNT = 110;
+
+    function resize() {
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+    }
+    window.addEventListener("resize", resize);
+    resize();
+
+    class Particle {
+      constructor() {
+        this.reset();
+      }
+      reset() {
+        this.x = Math.random() * w;
+        this.y = Math.random() * h;
+        this.size = Math.random() * 2.2 + 0.8;
+        this.speedX = (Math.random() - 0.5) * 0.45;
+        this.speedY = (Math.random() - 0.5) * 0.45;
+        this.opacity = Math.random() * 0.4 + 0.15;
+      }
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+
+        // wrap
+        if (this.x < 0) this.x = w;
+        if (this.x > w) this.x = 0;
+        if (this.y < 0) this.y = h;
+        if (this.y > h) this.y = 0;
+      }
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+        ctx.fill();
+
+        // subtle glow
+        if (this.size > 1.8) {
+          ctx.shadowColor = "rgba(108, 99, 255, 0.12)";
+          ctx.shadowBlur = 10;
+          ctx.fill();
+          ctx.shadowBlur = 0;
+        }
+      }
+    }
+
+    for (let i = 0; i < PARTICLE_COUNT; i++) {
+      particles.push(new Particle());
+    }
+
+    // mouse interaction – gentle attraction
+    let mouse = { x: null, y: null };
+    window.addEventListener("mousemove", (e) => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+    });
+    window.addEventListener("mouseleave", () => {
+      mouse.x = null;
+      mouse.y = null;
+    });
+
+    function animate() {
+      ctx.clearRect(0, 0, w, h);
+
+      particles.forEach((p) => {
+        // mouse attraction
+        if (mouse.x !== null && mouse.y !== null) {
+          const dx = mouse.x - p.x;
+          const dy = mouse.y - p.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 180) {
+            const force = ((180 - dist) / 180) * 0.008;
+            p.x += dx * force;
+            p.y += dy * force;
+          }
+        }
+        p.update();
+        p.draw();
+      });
+
+      // draw connections
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 100) {
+            const alpha = (1 - dist / 100) * 0.12;
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.strokeStyle = `rgba(255, 255, 255, ${alpha})`;
+            ctx.lineWidth = 0.8;
+            ctx.stroke();
+          }
+        }
+      }
+
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    // ============================================================
+    //  RESIZE PARTICLES ON ORIENTATION CHANGE
+    // ============================================================
+    let resizeTimer;
+    window.addEventListener("resize", () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        resize();
+        particles.forEach((p) => p.reset());
+      }, 200);
+    });
+  });
+</script>
